@@ -15,6 +15,7 @@
         '   + --- + - +   ',
         '   + -- + - + -   ',
         '   + - + - + - +   '];
+    /* 강의에서 나온 답 */
     // 문자열을 열결시키기 위한 빈 문자열
     let SecretString = "";
     for(let text of data){
@@ -25,10 +26,11 @@
         //parseInt(---,2) 2진수의 숫자를 십진수 숫자로 변경
         //String.fromCharCode() 숫자에 해당하는 아스키코드 문자로 변경
     }
+    /* 내가 수정한 답 */
     const str=data.map((text)=>String.fromCharCode(parseInt(text.replace(/ /g,'').replace(/\+/g, '1').replace(/-/g, '0'),2))).join('');
 
     console.log(SecretString);
-    console.log(`str: ${str}`)
+    console.log(`암호는: ${str}`)
 </script>
 </body>
 </html>
