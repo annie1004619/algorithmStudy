@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>섬으로 건너가라! (난이도 하) -시간연산-</title>
+</head>
+<body>
+<script>
+    let 대기인원 = 14000605;
+    /*
+    9시      25  25
+    9시10분   15  40
+    9시20분   15  55
+    9시30분   15  70
+    9시40분   15  85
+    9시50분   15  100
+
+    100명씩 12시간: 1200명 (하루에 태울 수 있는 인원 수)
+     */
+    console.log(`걸린일수: ${대기인원 / 1200}`); //걸린일수
+    let 일년일수 = 0;
+    for (let i = 1; i < 11; i++) {
+        일년일수 += 2 ** i;
+    }
+    console.log(`걸린연도: ${(대기인원 / 1200) / 일년일수}`); //걸린연도
+    console.log(`걸린연도를 뺀 나머지 일수: ${(대기인원 / 1200) % 일년일수}`); //걸린연도를 뺀 나머지 일수
+
+    let 걸린월수 = 0;
+    let 나머지일수 = (대기인원 / 1200) % 일년일수;
+
+    for (let i = 10; i > 0; i--) {
+        걸린월수++;
+        if (나머지일수 < 2 ** i) {
+            break;
+        }
+        나머지일수 = 나머지일수 - 2 ** i;
+    }
+
+    console.log(`걸린월수: ${걸린월수 - 1}`);
+    console.log(`월 계산 후 나머지 일수: ${나머지일수}`);
+
+    console.log(`시간: ${(대기인원 % 1200) / 100 + 9}`); //시간
+
+    let 출발분 = [25, 40, 55, 70, 85, 100];
+    let 최종계산된분 = 0;
+
+    for (let i = 0; i < 출발분.length; i++) {
+        if (출발분[i] > (대기인원 % 1200) % 100) {
+            최종계산된분 = i * 10;
+            break;
+        }
+    }
+
+    console.log(`최종계산된분: ${최종계산된분}`);
+
+    let date = new Date();
+    console.log(date);
+    console.log(date.getFullYear());
+    console.log(date.getDay()); //일요일 0
+    console.log(date.getHours());
+    console.log(date.getMinutes());
+    console.log(date.getSeconds());
+
+    console.log(`최종계산된분: ${최종계산된분 + date.getMinutes()}`);
+
+    function 배를건너는시간(대기인원) {
+        대기인원 = 대기인원 + 1;
+        let 년 = 0, 월 = 0, 일 = 0, 시 = 0, 분 = 0
+        let 걸린일수 = 대기인원 / 1200;
+        let 일년일수 = 0;
+        for (let i = 1; i < 11; i++) {
+            일년일수 += 2 ** i;
+        }
+        년 = parseInt((대기인원 / 1200) / 일년일수, 10)
+        + 2020;
+
+        let 나머지일수 = (대기인원 / 1200) % 일년일수;
+        let 걸린월수 = 0;
+        for (let i = 10; i > 0; i--) {
+            걸린월수++;
+            if (나머지일수 < 2 ** i) {
+                break;
+            }
+            나머지일수 = 나머지일수 - 2 ** i;
+        }
+
+        일 = parseInt(나머지일수, 10);
+        월 = 걸린월수;
+
+        시 = parseInt((대기인원 % 1200) / 100 + 9, 10);
+
+        let 출발분 = [25, 40, 55, 70, 85, 100];
+        let 최종계산된분 = 0;
+
+        for (let i = 0; i < 출발분.length; i++) {
+            if (출발분[i] > (대기인원 % 1200) % 100) {
+                최종계산된분 = i * 10;
+                break;
+            }
+        }
+        let date = new Date();
+        최종계산된분 = 최종계산된분 + date.getMinutes();
+
+        if (최종계산된분 > 60) {
+            최종계산된분 = 최종계산된분 - 60;
+            시 += 1;
+        }
+        분 = 최종계산된분;
+
+        return `
+        ${년}년 ${월}월 ${일}일 ${시}시 ${분}분
+       `
+    }
+
+    console.log(배를건너는시간(대기인원));
+</script>
+</body>
+</html>
