@@ -1,7 +1,6 @@
 from collections import deque
 # deque가 queue보다 속도가 훨씬 빠르다고 합니다!
 
-
 m, n, h = map(int, input().split())
 boxes = [[list(map(int, input().split())) for _ in range(n)] for _ in range(h)]
 
